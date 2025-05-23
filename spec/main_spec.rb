@@ -43,8 +43,15 @@ describe 'add' do # rubocop:disable Metrics/BlockLength
   end
 
   context 'with wrong params' do
-    it 'should return 0' do
-      expect(add('1.,')).to eq(0)
+    it 'should raise error' do
+      expect { add('1.,') }.to raise_error('invalid value for Integer(): "1."')
+    end
+  end
+
+  context 'with negative numbers' do
+    it 'should raise errors' do
+      expect{ add('1\n2,3,-4\n-6') }.to raise_error('negatives not allowed: -4,-6')
+      expect{ add('//__\n1__2__-4') }.to raise_error('negatives not allowed: -4')
     end
   end
 end

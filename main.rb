@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-def add(numbers) # rubocop:disable Metrics/MethodLength
+def add(numbers) # rubocop:disable Metrics
   return 0 if numbers == ''
 
   custom_delimiter_flag = '//'
@@ -11,7 +11,15 @@ def add(numbers) # rubocop:disable Metrics/MethodLength
     numbers = splitted_numbers[1]
   end
 
-  numbers.split(delimiter).sum { |numpart| numpart.split('\n').sum { |n| Integer(n) } }
-rescue StandardError
-  0
+  negative_numbers = []
+  total = numbers.split(delimiter).sum do |numpart|
+    numpart.split('\n').sum do |n|
+      num = Integer(n)
+      negative_numbers << num if num.negative?
+      num
+    end
+  end
+  raise "negatives not allowed: #{negative_numbers.join(',')}" if negative_numbers.any?
+
+  total
 end
