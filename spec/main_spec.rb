@@ -33,6 +33,7 @@ describe 'add' do # rubocop:disable Metrics/BlockLength
       expect(add('//[;]\n1;2')).to eq(3)
       expect(add('//[__]\n1__2__4')).to eq(7)
       expect(add('//[*][%]\n1*2%3')).to eq(6)
+      expect(add('//[**][%&]\n1**2%&3')).to eq(6)
     end
   end
 
@@ -58,7 +59,7 @@ describe 'add' do # rubocop:disable Metrics/BlockLength
   context 'with negative numbers' do
     it 'should raise errors' do
       expect { add('1\n2,3,-4\n-6') }.to raise_error('negatives not allowed: -4,-6')
-      expect { add('//__\n1__2__-4') }.to raise_error('negatives not allowed: -4')
+      expect { add('//[__]\n1__2__-4') }.to raise_error('negatives not allowed: -4')
     end
   end
 end
