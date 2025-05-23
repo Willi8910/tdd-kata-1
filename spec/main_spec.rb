@@ -24,12 +24,14 @@ describe 'add' do # rubocop:disable Metrics/BlockLength
   context 'with numbers including newline' do
     it 'should return sum of numbers' do
       expect(add('1\n2,3')).to eq(6)
+      expect(add('1\n2,3,4\n6')).to eq(16)
     end
   end
 
-  context 'with numbers including multiple newline' do
-    it 'should return sum of numbers' do
-      expect(add('1\n2,3,4\n6')).to eq(16)
+  context 'with custom delimiter' do
+    it 'should return correct result' do
+      expect(add('//;\n1;2')).to eq(3)
+      expect(add('//__\n1__2__4')).to eq(7)
     end
   end
 
