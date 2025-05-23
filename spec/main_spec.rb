@@ -35,6 +35,12 @@ describe 'add' do # rubocop:disable Metrics/BlockLength
     end
   end
 
+  context 'with numbers greater than 1000' do
+    it 'should return sum of numbers' do
+      expect(add('1,5,1000,1001')).to eq(1006)
+    end
+  end
+
   context 'with huge amount of numbers' do
     it 'should return sum of numbers' do
       numbers = 100.times.map { rand(0..100) }
@@ -50,8 +56,8 @@ describe 'add' do # rubocop:disable Metrics/BlockLength
 
   context 'with negative numbers' do
     it 'should raise errors' do
-      expect{ add('1\n2,3,-4\n-6') }.to raise_error('negatives not allowed: -4,-6')
-      expect{ add('//__\n1__2__-4') }.to raise_error('negatives not allowed: -4')
+      expect { add('1\n2,3,-4\n-6') }.to raise_error('negatives not allowed: -4,-6')
+      expect { add('//__\n1__2__-4') }.to raise_error('negatives not allowed: -4')
     end
   end
 end
