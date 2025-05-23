@@ -30,8 +30,9 @@ describe 'add' do # rubocop:disable Metrics/BlockLength
 
   context 'with custom delimiter' do
     it 'should return correct result' do
-      expect(add('//;\n1;2')).to eq(3)
-      expect(add('//__\n1__2__4')).to eq(7)
+      expect(add('//[;]\n1;2')).to eq(3)
+      expect(add('//[__]\n1__2__4')).to eq(7)
+      expect(add('//[*][%]\n1*2%3')).to eq(6)
     end
   end
 
