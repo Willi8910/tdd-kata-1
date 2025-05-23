@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+MAX_NUMBER_THRESHOLD = 1000
+CUSTOM_DELIMITER_FLAG = '//'
+
 def add(numbers) # rubocop:disable Metrics
   return 0 if numbers == ''
 
-  max_number_threshold = 1000
-  custom_delimiter_flag = '//'
   delimiters = [',', '\n']
-  if numbers[0..1] == custom_delimiter_flag
+  if numbers[0..1] == CUSTOM_DELIMITER_FLAG
     splitted_numbers = numbers.split('\n')
     delimiters = splitted_numbers[0][2..].split(']').map { |s| s[1..] }
     numbers = splitted_numbers[1]
@@ -20,7 +21,7 @@ def add(numbers) # rubocop:disable Metrics
 
   total = arr_numbers.sum do |n|
     num = Integer(n)
-    num = num <= max_number_threshold ? num : 0
+    num = num <= MAX_NUMBER_THRESHOLD ? num : 0
     negative_numbers << num if num.negative?
     num
   end
