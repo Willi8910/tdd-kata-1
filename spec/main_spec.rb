@@ -21,6 +21,18 @@ describe 'add' do # rubocop:disable Metrics/BlockLength
     end
   end
 
+  context 'with numbers including newline' do
+    it 'should return sum of numbers' do
+      expect(add('1\n2,3')).to eq(6)
+    end
+  end
+
+  context 'with numbers including multiple newline' do
+    it 'should return sum of numbers' do
+      expect(add('1\n2,3,4\n6')).to eq(16)
+    end
+  end
+
   context 'with huge amount of numbers' do
     it 'should return sum of numbers' do
       numbers = 100.times.map { rand(0..100) }
